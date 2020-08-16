@@ -1,24 +1,52 @@
-# README
+# Attendances Simulator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Application to simulate and test dealing with big data volume to Data Engineering MBA at IGTI.
 
-Things you may want to cover:
+## Dependencies
 
-* Ruby version
+*  [`docker`](https://docs.docker.com/engine/install/) > 18 (or newer)
+*  [`docker-compose`](https://docs.docker.com/compose/install/) > 1.20 (or newer)
 
-* System dependencies
+## Instalation
 
-* Configuration
+To install the project open a terminal and run:
 
-* Database creation
+```
+docker-compose up -d
+```
 
-* Database initialization
+Wait it can take while to build the docker images.
 
-* How to run the test suite
+After finish, create the database:
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+docker-compose exec run app rails db:create
+```
 
-* Deployment instructions
+If every is ok go to a browser and access:
 
-* ...
+```
+http://localhost:3000
+```
+
+## Utilites
+
+Start/stop the application:
+```
+docker-compose start/stop
+```
+
+Stop and remove containers:
+```
+docker-compose down
+```
+
+Rails console:
+```
+docker-compose exec app rails console
+```
+
+Shell:
+```
+docker-compose exec app sh
+```
