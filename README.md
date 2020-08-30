@@ -20,7 +20,14 @@ Wait it can take while to build the docker images.
 After finish, create the database:
 
 ```
+# create databases
 docker-compose exec run app rails db:create
+
+# run migrations to create tables
+docker-compose exec run app rails db:migrate
+
+# populate with base data
+docker-compose exec run app rails db:seed
 ```
 
 If every is ok go to a browser and access:

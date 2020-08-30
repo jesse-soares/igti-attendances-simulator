@@ -11,7 +11,7 @@
 #  store_id         :bigint           not null
 #
 class Movement < ApplicationRecord
-  belong_to :movement_type
-  belong_to :seller
-  belong_to :store
+  belongs_to :movement_type
+  belongs_to :seller
+  belongs_to :store
 end

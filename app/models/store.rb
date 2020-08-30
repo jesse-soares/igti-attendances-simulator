@@ -2,9 +2,10 @@
 #
 # Table name: stores
 #
-#  id    :bigint           not null, primary key
-#  brand :string           not null
-#  name  :string           not null
+#  id       :bigint           not null, primary key
+#  name     :string           not null
+#  brand_id :bigint           not null
 #
 class Store < ApplicationRecord
+  belongs_to :brand
 end

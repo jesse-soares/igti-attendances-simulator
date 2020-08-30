@@ -12,7 +12,7 @@
 #  store_id           :bigint           not null
 #
 class Attendance < ApplicationRecord
-  belong_to :attendance_type
-  belong_to :seller
-  belong_to :store
+  belongs_to :attendance_type
+  belongs_to :seller
+  belongs_to :store
 end

@@ -1,23 +1,31 @@
 class CreateAttendancesTables < ActiveRecord::Migration[6.0]
   def change
-    create_table :sellers do |t|
+    create_table :brands do |t|
       t.string :name, null: false
     end
 
     create_table :stores do |t|
       t.string :name, null: false
-      t.string :brand, null: false
+      t.references :brand, null: false, foreign_key: true
     end
 
-    create_table :lost_reasons do |t|
-      t.string :description, null: false
+    create_table :sellers do |t|
+      t.string :name, null: false
+      t.references :store, null: false, foreign_key: true
     end
 
     create_table :products do |t|
       t.string :description, null: false
+      t.references :brand, null: false, foreign_key: true
+    end
+
+    create_table :lost_reasons do |t|
+      t.string :code, null: false
+      t.string :description, null: false
     end
 
     create_table :attendance_types do |t|
+      t.string :code, null: false
       t.string :description, null: false
     end
 
@@ -42,6 +50,7 @@ class CreateAttendancesTables < ActiveRecord::Migration[6.0]
 
     ### movements
     create_table :movement_types do |t|
+      t.string :code, null: false
       t.string :description, null: false
     end
 

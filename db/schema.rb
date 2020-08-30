@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_153307) do
   enable_extension "plpgsql"
 
   create_table "attendance_types", force: :cascade do |t|
+    t.string "code", null: false
     t.string "description", null: false
   end
 
@@ -46,11 +47,17 @@ ActiveRecord::Schema.define(version: 2020_08_16_153307) do
     t.index ["product_id"], name: "index_attendances_products_on_product_id"
   end
 
+  create_table "brands", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
   create_table "lost_reasons", force: :cascade do |t|
+    t.string "code", null: false
     t.string "description", null: false
   end
 
   create_table "movement_types", force: :cascade do |t|
+    t.string "code", null: false
     t.string "description", null: false
   end
 
@@ -68,15 +75,20 @@ ActiveRecord::Schema.define(version: 2020_08_16_153307) do
 
   create_table "products", force: :cascade do |t|
     t.string "description", null: false
+    t.bigint "brand_id", null: false
+    t.index ["brand_id"], name: "index_products_on_brand_id"
   end
 
   create_table "sellers", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "store_id", null: false
+    t.index ["store_id"], name: "index_sellers_on_store_id"
   end
 
   create_table "stores", force: :cascade do |t|
     t.string "name", null: false
-    t.string "brand", null: false
+    t.bigint "brand_id", null: false
+    t.index ["brand_id"], name: "index_stores_on_brand_id"
   end
 
   add_foreign_key "attendances", "attendance_types"
@@ -89,4 +101,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_153307) do
   add_foreign_key "movements", "movement_types"
   add_foreign_key "movements", "sellers"
   add_foreign_key "movements", "stores"
+  add_foreign_key "products", "brands"
+  add_foreign_key "sellers", "stores"
+  add_foreign_key "stores", "brands"
 end
