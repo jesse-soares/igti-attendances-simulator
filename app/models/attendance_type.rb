@@ -2,8 +2,7 @@
 #
 # Table name: attendance_types
 #
-#  id          :bigint           not null, primary key
-#  code        :string           not null
+#  code        :string           not null, primary key
 #  description :string           not null
 #
 class AttendanceType < ApplicationRecord

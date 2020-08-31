@@ -42,16 +42,16 @@ end
   brand = Brand.create! name: Faker::Company.name
 
   # Create products
-  (0..(200..1_000).to_a.sample).each do
+  (0..rand(200..1_000)).each do
     Product.create! description: Faker::Commerce.product_name, brand: brand
   end
 
-  (0..(3..20).to_a.sample).each do
+  (0..rand(3..20)).each do
     # Create stores
     store = Store.create! name: Faker::Company.name, brand: brand
 
     # Create sellers
-    (0..(3..20).to_a.sample).each { Seller.create! name: Faker::Name.name, store: store }
+    (0..rand(3..20)).each { Seller.create! name: Faker::Name.name, store: store }
   end
 end
 

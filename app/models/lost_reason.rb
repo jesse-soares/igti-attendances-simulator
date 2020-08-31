@@ -2,8 +2,7 @@
 #
 # Table name: lost_reasons
 #
-#  id          :bigint           not null, primary key
-#  code        :string           not null
+#  code        :string           not null, primary key
 #  description :string           not null
 #
 class LostReason < ApplicationRecord

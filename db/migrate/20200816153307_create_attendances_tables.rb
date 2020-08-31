@@ -19,47 +19,41 @@ class CreateAttendancesTables < ActiveRecord::Migration[6.0]
       t.references :brand, null: false, foreign_key: true
     end
 
-    create_table :lost_reasons do |t|
-      t.string :code, null: false
+    create_table :lost_reasons, primary_key: :code, id: :string do |t|
       t.string :description, null: false
     end
 
-    create_table :attendance_types do |t|
-      t.string :code, null: false
+    create_table :attendance_types, primary_key: :code, id: :string do |t|
       t.string :description, null: false
     end
 
     create_table :attendances do |t|
-      t.references :seller,          null: false, foreign_key: true
-      t.references :store,           null: false, foreign_key: true
-      t.references :attendance_type, null: false, foreign_key: true
-      t.datetime   :start_at, null: false
-      t.datetime   :end_at,   null: false
+      t.references :seller,  null: false, foreign_key: true
+      t.references :store,   null: false, foreign_key: true
+      t.references :product, foreign_key: true
+      t.string :attendance_type_code, null: false
+      t.string :lost_reason_code
+      t.datetime :start_at, null: false
+      t.datetime :end_at,   null: false
       t.timestamps
     end
 
-    create_table :attendances_lost_reasons, id: false do |t|
-      t.references :attendance, null: false, foreign_key: true
-      t.references :lost_reason, null: false, foreign_key: true
-    end
-
-    create_table :attendances_products, id: false do |t|
-      t.references :attendance, null: false, foreign_key: true
-      t.references :product, null: false, foreign_key: true
-    end
+    add_foreign_key :attendances, :attendance_types, column: :attendance_type_code, primary_key: :code
+    add_foreign_key :attendances, :lost_reasons, column: :lost_reason_code, primary_key: :code
 
     ### movements
-    create_table :movement_types do |t|
-      t.string :code, null: false
+    create_table :movement_types, primary_key: :code, id: :string do |t|
       t.string :description, null: false
     end
 
     create_table :movements do |t|
-      t.references :seller,        null: false, foreign_key: true
-      t.references :store,         null: false, foreign_key: true
-      t.references :movement_type, null: false, foreign_key: true
-      t.datetime   :date_time
+      t.references :seller, null: false, foreign_key: true
+      t.references :store,  null: false, foreign_key: true
+      t.string     :movement_type_code, null: false
+      t.datetime   :date_time,     null: false
       t.timestamps
     end
+
+    add_foreign_key :movements, :movement_types, column: :movement_type_code, primary_key: :code
   end
 end

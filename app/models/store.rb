@@ -8,4 +8,6 @@
 #
 class Store < ApplicationRecord
   belongs_to :brand
+
+  has_many :sellers, inverse_of: :store, dependent: :destroy
 end
