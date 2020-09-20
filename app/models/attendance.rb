@@ -20,6 +20,8 @@ class Attendance < ApplicationRecord
   belongs_to :lost_reason, foreign_key: :lost_reason_code, primary_key: :code, optional: true
   belongs_to :product, optional: true
 
+  scope :by_day, ->(day) { where("date_trunc('day', start_at) = ?", day.to_date) }
+
   def self.create_random(store, date, lost_reasons=nil, attendance_types=nil)
     start_at = date.to_time + rand((7*3600)..(23*3600)) # between 7:00 and 23:00
     end_at   = start_at + rand(30..(25*60))             # 30 seg a 25 min
