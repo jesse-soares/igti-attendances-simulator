@@ -31,5 +31,14 @@ module IgtiAttendancesSimulator
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |g|
+      g.orm :active_record
+    end
+
+    # Mongo
+    config.mongoid.logger = Logger.new(STDERR, :warn)
+    config.mongoid.logger.level = Logger::INFO
+    config.mongoid.preload_models = false
   end
 end
