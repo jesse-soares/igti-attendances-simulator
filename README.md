@@ -57,3 +57,40 @@ Shell:
 ```
 docker-compose exec app sh
 ```
+
+Access MongoDB database:
+```
+docker-compose exec mongodb sh
+# mongo
+> show databases
+> use igti_attendances_simulator_development
+> show collections
+```
+
+## Running the proccess
+
+### Generate random data
+
+To generante random attendances in database, run in rails console:
+
+```
+Generators::Attendances.new(params).generate
+```
+
+avaliable params:
+
+* **stores:** _default: nil_. If nil generate data for all stores in database.
+* **start_date:** _default: Date.today_
+* **end_date:** _default: Date.today_
+* **monthly_amount:** _default: 10_000_000_
+* **log_sql:** _default: false_
+
+### ETL Postgresql > MongoDB
+
+To execute the script to transform attendances and load at MongoDB database, run in rails console:
+
+#### Lost Reasons
+Compilation of lost reasons per day:
+```
+Etls::LostReasons.generate_by_date(date)
+```

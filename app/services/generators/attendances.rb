@@ -1,6 +1,5 @@
 module Generators
-  class Attendances < ActiveRecord::Migration[6.0]
-
+  class Attendances
     attr_reader :stores, :start_date, :end_date, :monthly_amount
 
     def initialize(stores: nil, start_date: Date.today, end_date: Date.today, monthly_amount: 10_000_000, log_sql: false)
@@ -36,30 +35,6 @@ module Generators
       end
 
       log 'Finish!'
-    end
-
-    def disable_fks_indexes
-      remove_foreign_key "attendances", "attendance_types", column: "attendance_type_code", primary_key: "code"
-      remove_foreign_key "attendances", "lost_reasons", column: "lost_reason_code", primary_key: "code"
-      remove_foreign_key "attendances", "products"
-      remove_foreign_key "attendances", "sellers"
-      remove_foreign_key "attendances", "stores"
-
-      remove_index "attendances", "product_id"
-      remove_index "attendances", "seller_id"
-      remove_index "attendances", "store_id"
-    end
-
-    def enable_fks_indexes
-      add_foreign_key "attendances", "attendance_types", column: "attendance_type_code", primary_key: "code"
-      add_foreign_key "attendances", "lost_reasons", column: "lost_reason_code", primary_key: "code"
-      add_foreign_key "attendances", "products"
-      add_foreign_key "attendances", "sellers"
-      add_foreign_key "attendances", "stores"
-
-      add_index "attendances", "product_id"
-      add_index "attendances", "seller_id"
-      add_index "attendances", "store_id"
     end
 
     private
