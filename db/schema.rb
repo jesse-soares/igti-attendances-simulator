@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_16_153307) do
+ActiveRecord::Schema.define(version: 2020_11_12_193724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(version: 2020_08_16_153307) do
     t.datetime "end_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "date_trunc('day'::text, start_at)", name: "index_attendances_on_date_trunc_day_start_at"
+    t.index ["attendance_type_code"], name: "index_attendances_on_attendance_type_code"
+    t.index ["lost_reason_code"], name: "index_attendances_on_lost_reason_code"
     t.index ["product_id"], name: "index_attendances_on_product_id"
     t.index ["seller_id"], name: "index_attendances_on_seller_id"
     t.index ["store_id"], name: "index_attendances_on_store_id"

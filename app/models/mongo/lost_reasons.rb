@@ -12,4 +12,15 @@ class Mongo::LostReasons
   field :brand_name, type: String
   field :attendances_count, type: Integer
   field :date, type: Date
+
+  def self.lost_reasons_count_by(filters: nil)
+    group = {
+      '$group': {
+        _id: { code: '$lost_reason_code', description: '$lost_reason_description' },
+        total: { '$sum': '$attendances_count' }
+      }
+    }
+
+    filters ? self.collection.aggregate([{ '$match': filters }, group]) : self.collection.aggregate([group])
+  end
 end

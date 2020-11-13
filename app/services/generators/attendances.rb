@@ -7,7 +7,7 @@ module Generators
       @end_date   = end_date&.to_date
       @monthly_amount = monthly_amount&.to_i
 
-      ActiveRecord::Base.logger = nil unless log_sql
+      ServiceUtils.disable_database_logs unless log_sql
 
       validate
 

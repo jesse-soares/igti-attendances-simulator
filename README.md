@@ -69,7 +69,7 @@ docker-compose exec mongodb sh
 
 ## Running the proccess
 
-### Generate random data
+### 1) Generate random data
 
 To generante random attendances in database, run in rails console:
 
@@ -85,7 +85,7 @@ avaliable params:
 * **monthly_amount:** _default: 10_000_000_
 * **log_sql:** _default: false_
 
-### ETL Postgresql > MongoDB
+### 2) ETL Postgresql > MongoDB
 
 To execute the script to transform attendances and load at MongoDB database, run in rails console:
 
@@ -93,4 +93,12 @@ To execute the script to transform attendances and load at MongoDB database, run
 Compilation of lost reasons per day:
 ```
 Etls::LostReasons.generate_by_date(date)
+```
+
+### 3) Benchmark
+
+To measure the performance between databases run the benchmarks:
+
+```
+Benchmarks::LostReasons.run_all
 ```
